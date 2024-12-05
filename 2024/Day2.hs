@@ -1,7 +1,6 @@
 import Data.List
 
 -- See https://adventofcode.com/2024/day/2.
---
 -- Assumes valid input. Focus is on brevity and simplicity over optimization.
 
 main = do

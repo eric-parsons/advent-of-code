@@ -2,7 +2,6 @@ import Data.List
 import Data.Maybe
 
 -- See https://adventofcode.com/2024/day/1.
---
 -- Assumes valid input. Focus is on brevity and simplicity over optimization.
 
 main = do

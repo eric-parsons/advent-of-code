@@ -1,7 +1,6 @@
 import Text.Regex.PCRE
 
 -- See https://adventofcode.com/2024/day/3.
---
 -- Assumes valid input. Focus is on brevity and simplicity over optimization.
 
 data Token = Enable | Disable | Mul Int Int deriving (Show)
