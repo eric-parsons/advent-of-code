@@ -22,8 +22,8 @@ part2 rows = sum $ map (fromEnum . isXmas) xGroups
   where
     -- Enumerate all 3x3 submatrices of the input, each concatenated into a
     -- single 9-character string for easier pattern matching.
-    xGroups = [concat ms | ts <- triplets rows, ms <- transpose $ map triplets ts]
-    isXmas s = s =~ "M.M.A.S.S" || s =~ "M.S.A.M.S" || s =~ "S.M.A.S.M" || s =~ "S.S.A.M.M"
+    xGroups = [concat group | ts <- triplets rows, group <- transpose $ map triplets ts]
+    isXmas s = s =~ "M.M.A.S.S|M.S.A.M.S|S.M.A.S.M|S.S.A.M.M" :: Bool
 
 -- Produces a list of values obtained when a matrix is read diagonally from top
 -- left to bottom right.
