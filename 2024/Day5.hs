@@ -37,7 +37,8 @@ u `satisfiesRules` rules = all (u `satisfiesRule`) rules
   where
     -- An update satisfies a rule (x,y) if the index of x in the update is less
     -- than the index of y, or if one or both does not appear at all.
-    u `satisfiesRule` (x, y) = liftM2 (<) (elemIndex x u) (elemIndex y u) /= Just False
+    u `satisfiesRule` (x, y) = elemIndex x u `maybeLessThan` elemIndex y u /= Just False
+    maybeLessThan = liftM2 (<)
 
 mid xs = xs !! (length xs `div` 2)
 
