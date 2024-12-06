@@ -17,8 +17,10 @@ main = do
   print $ part1 validUpdates
   print $ part2 rules invalidUpdates
 
+part1 :: [Update] -> Int
 part1 = sum . map mid
 
+part2 :: [Rule] -> [Update] -> Int
 part2 rules = sum . map (mid . fixUpdate)
   where
     fixUpdate u = sortOn (\p -> fromMaybe 0 $ elemIndex p totalOrdering) u
@@ -40,6 +42,8 @@ u `satisfiesRules` rules = all (u `satisfiesRule`) rules
     u `satisfiesRule` (x, y) = elemIndex x u `maybeLessThan` elemIndex y u /= Just False
     maybeLessThan = liftM2 (<)
 
+-- Gets the middle element of a list (explodes on empty list).
+mid :: [a] -> a
 mid xs = xs !! (length xs `div` 2)
 
 parseInput :: String -> ([Rule], [Update])

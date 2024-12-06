@@ -11,8 +11,10 @@ main = do
   print $ part1 tokens
   print $ part2 tokens
 
+part1 :: [Token] -> Int
 part1 = sum . map eval . filter isMul
 
+part2 :: [Token] -> Int
 part2 = sum . map eval . filterMuls True
   where
     filterMuls True (t : ts) | isMul t = t : filterMuls True ts
@@ -21,12 +23,15 @@ part2 = sum . map eval . filterMuls True
     filterMuls enabled (t : ts) = filterMuls enabled ts
     filterMuls _ [] = []
 
+isMul :: Token -> Bool
 isMul (Mul _ _) = True
 isMul _ = False
 
+eval :: Token -> Int
 eval (Mul x y) = x * y
 eval _ = 0
 
+parseInput :: String -> [Token]
 parseInput input = map toToken matches
   where
     matches = input =~ "mul\\((\\d{1,3}),(\\d{1,3})\\)|don't|do" :: [[String]]
