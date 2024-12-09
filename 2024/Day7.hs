@@ -2,7 +2,7 @@ import Control.Monad
 import Data.List.Extra
 import Data.Maybe
 
--- See https://adventofcode.com/2024/day/6.
+-- See https://adventofcode.com/2024/day/7.
 -- Assumes valid input. Focus is on brevity and simplicity over optimization.
 
 data Token = Add | Mul | Concat | Val Int deriving (Show)
