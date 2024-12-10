@@ -1,5 +1,4 @@
 import Data.List.Extra
-import Data.Maybe
 
 -- See https://adventofcode.com/2024/day/10.
 -- Assumes valid input. Focus is on brevity and simplicity over optimization.
@@ -13,19 +12,23 @@ type Space = (Coords, Height)
 
 type Map = [Space]
 
+type Trail = [Space]
+
 main = do
   input <- readFile "./Day10.input.txt"
-  let m = parseMap input
-  print $ part1 m
-  print $ part2 m
+  let ts = trails $ parseMap input
+  print $ part1 ts
+  print $ part2 ts
 
-part1 = sum . map (length . nub . map last) . groupSortOn head . trails
+part1 :: [Trail] -> Int
+part1 = sum . map (length . nub . map last) . groupSortOn head
 
-part2 = length . trails
+part2 :: [Trail] -> Int
+part2 = length
 
 -- Gets all distinct trails in the map starting at height 0 and ending at
 -- height 9.
-trails :: Map -> [[Space]]
+trails :: Map -> [Trail]
 trails m = iterate (>>= expand) trailheads !! 9
   where
     trailheads = map (: []) . filter ((== 0) . snd) $ m
