@@ -32,9 +32,7 @@ trails :: Map -> [Trail]
 trails m = iterate (>>= expand) trailheads !! 9
   where
     trailheads = map (: []) . filter ((== 0) . snd) $ m
-    expand trail = do
-      s <- nextSteps m (last trail)
-      return $ trail ++ [s]
+    expand trail = [trail ++ [s] | s <- nextSteps m (last trail)]
 
 -- Gets all of the possible next spaces from a given space within a map.
 nextSteps :: Map -> Space -> [Space]
