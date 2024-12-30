@@ -48,7 +48,6 @@ sides r = lefts ++ rights ++ aboves ++ belows
     -- Get the coordinates of all spaces immediately surrrounding the region, and
     -- group them in each direction using a similar technique used in
     -- makeRegions.
-
     inside = map fst r
     lefts = getSides groupVertical left
     rights = getSides groupVertical right
