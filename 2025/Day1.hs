@@ -7,27 +7,24 @@ main = do
   print $ part1 rotations
   print $ part2 rotations
 
-part1 = countZeroes . turns
+part1 = length . filter (== 0) . positions
 
--- Lazy brute force approach that splits up each rotation into individual
--- clicks instead of dealing with messy math and all of the edge cases :-). 
-part2 = countZeroes . turns . concatMap oneAtATime
+part2 rs = sum $ zipWith countZeroes (positions rs) rs
   where
-    oneAtATime n = replicate (abs n) (signum n)
-
-countZeroes :: [Int] -> Int
-countZeroes = length . filter (== 0)
+    countZeroes pos rotation
+      | rotation >= 0 = (pos + rotation) `div` 100
+      | otherwise = (((100 - pos) `mod` 100) - rotation) `div` 100
 
 -- Takes a list of rotations and produces a list of cumulative positions after
 -- each rotation.
-turns :: [Int] -> [Int]
-turns = scanl turn 50
+positions :: [Int] -> [Int]
+positions = scanl turn 50
   where
-    turn pos clicks = (pos + clicks) `mod` 100
+    turn pos rotation = (pos + rotation) `mod` 100
 
 -- Left rotations are negative and right rotations are positive.
 parseInput :: String -> [Int]
-parseInput = map toRotation . lines
+parseInput = map readRotation . lines
   where
-    toRotation ('L' : n) = -read n
-    toRotation ('R' : n) = read n
+    readRotation ('L' : n) = -read n
+    readRotation ('R' : n) = read n
