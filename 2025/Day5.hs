@@ -15,10 +15,13 @@ main = do
   print $ part2 ranges'
 
 part1 :: [Range] -> [Id] -> Int
-part1 ranges ids = length $ filter (\id -> any (\(lower, upper) -> id >= lower && id <= upper) ranges) ids
+part1 ranges = length . filter (\id -> any (id `isInRange`) ranges)
 
 part2 :: [Range] -> Int
 part2 = sum . map (\(lower, upper) -> upper - lower + 1)
+
+isInRange :: Id -> Range -> Bool
+isInRange id (lower, upper) = id >= lower && id <= upper
 
 -- Optimize ranges so that there is no overlap between any two.
 mergeRanges :: [Range] -> [Range]
